@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>build.gradle.kts</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #bcbec4;}
+.s2 { color: #6aab73;}
+.s3 { color: #2aacb8;}
+.s4 { color: #cf8e6d;}
+.s5 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#191a1c">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+build.gradle.kts</font>
+</center></td></tr></table>
+<pre><span class="s0">plugins </span><span class="s1">{</span>
+    <span class="s0">id</span><span class="s1">(</span><span class="s2">&quot;com.android.application&quot;</span><span class="s1">)</span>
+    <span class="s0">id</span><span class="s1">(</span><span class="s2">&quot;org.jetbrains.kotlin.android&quot;</span><span class="s1">)</span>
+    <span class="s0">id</span><span class="s1">(</span><span class="s2">&quot;org.jetbrains.kotlin.plugin.compose&quot;</span><span class="s1">)</span>
+    <span class="s0">id</span><span class="s1">(</span><span class="s2">&quot;kotlin-kapt&quot;</span><span class="s1">)</span>
+    <span class="s0">id</span><span class="s1">(</span><span class="s2">&quot;com.google.dagger.hilt.android&quot;</span><span class="s1">)</span>
+<span class="s1">}</span>
+
+<span class="s0">android </span><span class="s1">{</span>
+    <span class="s0">namespace </span><span class="s1">= </span><span class="s2">&quot;com.example.finalpro&quot;</span>
+    <span class="s0">compileSdk </span><span class="s1">= </span><span class="s3">36</span>
+
+    <span class="s0">compileOptions </span><span class="s1">{</span>
+        <span class="s0">isCoreLibraryDesugaringEnabled </span><span class="s1">= </span><span class="s4">true</span>
+        <span class="s0">sourceCompatibility </span><span class="s1">= </span><span class="s0">JavaVersion</span><span class="s1">.</span><span class="s0">VERSION_11</span>
+        <span class="s0">targetCompatibility </span><span class="s1">= </span><span class="s0">JavaVersion</span><span class="s1">.</span><span class="s0">VERSION_11</span>
+    <span class="s1">}</span>
+
+    <span class="s5">// ✅ Usamos kotlinOptions (compatible con versiones anteriores)</span>
+    <span class="s0">kotlinOptions </span><span class="s1">{</span>
+        <span class="s0">jvmTarget </span><span class="s1">= </span><span class="s2">&quot;11&quot;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">defaultConfig </span><span class="s1">{</span>
+        <span class="s0">applicationId </span><span class="s1">= </span><span class="s2">&quot;com.example.finalpro&quot;</span>
+        <span class="s0">minSdk </span><span class="s1">= </span><span class="s3">24</span>
+        <span class="s0">targetSdk </span><span class="s1">= </span><span class="s3">36</span>
+        <span class="s0">versionCode </span><span class="s1">= </span><span class="s3">1</span>
+        <span class="s0">versionName </span><span class="s1">= </span><span class="s2">&quot;1.0&quot;</span>
+        <span class="s0">testInstrumentationRunner </span><span class="s1">= </span><span class="s2">&quot;androidx.test.runner.AndroidJUnitRunner&quot;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">buildTypes </span><span class="s1">{</span>
+        <span class="s0">release </span><span class="s1">{</span>
+            <span class="s0">isMinifyEnabled </span><span class="s1">= </span><span class="s4">false</span>
+            <span class="s0">proguardFiles</span><span class="s1">(</span>
+                <span class="s0">getDefaultProguardFile</span><span class="s1">(</span><span class="s2">&quot;proguard-android-optimize.txt&quot;</span><span class="s1">),</span>
+                <span class="s2">&quot;proguard-rules.pro&quot;</span>
+            <span class="s1">)</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">buildFeatures </span><span class="s1">{</span>
+        <span class="s0">compose </span><span class="s1">= </span><span class="s4">true</span>
+    <span class="s1">}</span>
+
+    <span class="s0">kapt </span><span class="s1">{</span>
+        <span class="s0">correctErrorTypes </span><span class="s1">= </span><span class="s4">true</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">dependencies </span><span class="s1">{</span>
+    <span class="s0">coreLibraryDesugaring</span><span class="s1">(</span><span class="s2">&quot;com.android.tools:desugar_jdk_libs:2.0.4&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Retrofit</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;com.squareup.retrofit2:retrofit:2.9.0&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;com.squareup.retrofit2:converter-gson:2.9.0&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;com.squareup.okhttp3:logging-interceptor:4.12.0&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Navigation Compose</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.navigation:navigation-compose:2.8.9&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Material Icons Extended</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.material:material-icons-extended&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// ViewModel Compose</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Gráficos Vico</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;com.patrykandpatrick.vico:compose-m3:1.15.0&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;com.patrykandpatrick.vico:core:1.15.0&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Splash Screen</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.core:core-splashscreen:1.0.1&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// DataStore</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.datastore:datastore-preferences:1.1.2&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Hilt</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;com.google.dagger:hilt-android:2.52&quot;</span><span class="s1">)</span>
+    <span class="s0">kapt</span><span class="s1">(</span><span class="s2">&quot;com.google.dagger:hilt-compiler:2.52&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Corutinas</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Lifecycle + Hilt Navigation Compose</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.lifecycle:lifecycle-runtime-ktx:2.8.7&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.hilt:hilt-navigation-compose:1.2.0&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// AndroidX Core y Activity Compose</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.core:core-ktx:1.15.0&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.activity:activity-compose:1.10.1&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Compose BOM y librerías</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s0">platform</span><span class="s1">(</span><span class="s2">&quot;androidx.compose:compose-bom:2025.05.00&quot;</span><span class="s1">))</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.ui:ui&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.ui:ui-graphics&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.ui:ui-tooling-preview&quot;</span><span class="s1">)</span>
+    <span class="s0">implementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.material3:material3&quot;</span><span class="s1">)</span>
+
+    <span class="s5">// Testing</span>
+    <span class="s0">testImplementation</span><span class="s1">(</span><span class="s2">&quot;junit:junit:4.13.2&quot;</span><span class="s1">)</span>
+    <span class="s0">androidTestImplementation</span><span class="s1">(</span><span class="s2">&quot;androidx.test.ext:junit:1.2.1&quot;</span><span class="s1">)</span>
+    <span class="s0">androidTestImplementation</span><span class="s1">(</span><span class="s2">&quot;androidx.test.espresso:espresso-core:3.6.1&quot;</span><span class="s1">)</span>
+    <span class="s0">androidTestImplementation</span><span class="s1">(</span><span class="s0">platform</span><span class="s1">(</span><span class="s2">&quot;androidx.compose:compose-bom:2025.05.00&quot;</span><span class="s1">))</span>
+    <span class="s0">androidTestImplementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.ui:ui-test-junit4&quot;</span><span class="s1">)</span>
+    <span class="s0">debugImplementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.ui:ui-tooling&quot;</span><span class="s1">)</span>
+    <span class="s0">debugImplementation</span><span class="s1">(</span><span class="s2">&quot;androidx.compose.ui:ui-test-manifest&quot;</span><span class="s1">)</span>
+<span class="s1">}</span></pre>
+</body>
+</html>
