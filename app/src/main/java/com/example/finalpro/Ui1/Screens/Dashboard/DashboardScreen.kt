@@ -173,12 +173,20 @@ fun DashboardScreen(
     ) {
         Scaffold(
             containerColor = BgPrimary,
-            bottomBar = {
-                BottomNavBar(
-                    navController = navController,
-                    onFabClick = { showFabSheet = true }
-                )
-            }
+            // FAB centrado — aqui es donde debe vivir, no dentro de NavigationBar
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { showFabSheet = true },
+                    containerColor = GreenPrimary,
+                    contentColor = Color.White,
+                    shape = CircleShape,
+                    modifier = Modifier.size(56.dp)
+                ) {
+                    Icon(Icons.Rounded.Add, contentDescription = "Agregar", modifier = Modifier.size(26.dp))
+                }
+            },
+            floatingActionButtonPosition = FabPosition.Center,
+            bottomBar = { BottomNavBar(navController = navController) }
         ) { padding ->
             LazyColumn(
                 modifier = Modifier.fillMaxSize().padding(padding),
@@ -258,16 +266,28 @@ fun DashboardScreen(
                     )
                     Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         QuickChip(Modifier.weight(1f), Icons.AutoMirrored.Rounded.TrendingUp, "Ingresos", ColorIngreso) {
-                            navController.navigate(Screen.Ingresos.route) { popUpTo(Screen.Dashboard.route) { inclusive = false }; launchSingleTop = true }
+                            navController.navigate(Screen.Ingresos.route) {
+                                popUpTo(Screen.Dashboard.route) { inclusive = false }
+                                launchSingleTop = true
+                            }
                         }
                         QuickChip(Modifier.weight(1f), Icons.AutoMirrored.Rounded.TrendingDown, "Gastos", ColorGasto) {
-                            navController.navigate(Screen.Gastos.route) { popUpTo(Screen.Dashboard.route) { inclusive = false }; launchSingleTop = true }
+                            navController.navigate(Screen.Gastos.route) {
+                                popUpTo(Screen.Dashboard.route) { inclusive = false }
+                                launchSingleTop = true
+                            }
                         }
                         QuickChip(Modifier.weight(1f), Icons.Rounded.EmojiEvents, "Metas", ColorInfo) {
-                            navController.navigate(Screen.Metas.route) { popUpTo(Screen.Dashboard.route) { inclusive = false }; launchSingleTop = true }
+                            navController.navigate(Screen.Metas.route) {
+                                popUpTo(Screen.Dashboard.route) { inclusive = false }
+                                launchSingleTop = true
+                            }
                         }
                         QuickChip(Modifier.weight(1f), Icons.Rounded.BarChart, "Reportes", ColorWarning) {
-                            navController.navigate(Screen.Reportes.route) { popUpTo(Screen.Dashboard.route) { inclusive = false }; launchSingleTop = true }
+                            navController.navigate(Screen.Reportes.route) {
+                                popUpTo(Screen.Dashboard.route) { inclusive = false }
+                                launchSingleTop = true
+                            }
                         }
                     }
                 }
@@ -289,6 +309,7 @@ fun DashboardScreen(
         }
     }
 
+    // FAB sheet
     if (showFabSheet) {
         ModalBottomSheet(
             onDismissRequest = { showFabSheet = false },
@@ -302,7 +323,10 @@ fun DashboardScreen(
                 Text("Que quieres registrar?", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = TextPrimary)
                 FabSheetOption(Icons.AutoMirrored.Rounded.TrendingDown, ColorGasto, ColorGasto.copy(alpha = 0.1f), "Nuevo gasto", "Registra un gasto puntual") {
                     showFabSheet = false
-                    navController.navigate(Screen.Gastos.route) { popUpTo(Screen.Dashboard.route) { inclusive = false }; launchSingleTop = true }
+                    navController.navigate(Screen.Gastos.route) {
+                        popUpTo(Screen.Dashboard.route) { inclusive = false }
+                        launchSingleTop = true
+                    }
                 }
                 FabSheetOption(Icons.AutoMirrored.Rounded.TrendingUp, ColorIngreso, ColorIngreso.copy(alpha = 0.1f), "Nuevo ingreso", "Registra una entrada de dinero") {
                     showFabSheet = false
@@ -310,7 +334,10 @@ fun DashboardScreen(
                 }
                 FabSheetOption(Icons.Rounded.EmojiEvents, ColorInfo, ColorInfo.copy(alpha = 0.1f), "Abonar a meta", "Se descuenta de tu saldo disponible") {
                     showFabSheet = false
-                    navController.navigate(Screen.Metas.route) { popUpTo(Screen.Dashboard.route) { inclusive = false }; launchSingleTop = true }
+                    navController.navigate(Screen.Metas.route) {
+                        popUpTo(Screen.Dashboard.route) { inclusive = false }
+                        launchSingleTop = true
+                    }
                 }
             }
         }
@@ -489,7 +516,6 @@ private fun EmptyBalanceCard() {
     ) {
         Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("", fontSize = 32.sp)
                 Spacer(Modifier.height(8.dp))
                 Text("Sin datos este mes", color = TextSecondary, fontWeight = FontWeight.Bold)
                 Text("Agrega ingresos para comenzar", color = TextMuted, style = MaterialTheme.typography.bodySmall)
@@ -497,6 +523,11 @@ private fun EmptyBalanceCard() {
         }
     }
 }
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
 private fun formatMoneyShort(monto: Double, moneda: String): String {
     val simbolos = mapOf("COP" to "$", "USD" to "US$", "EUR" to "EUR", "MXN" to "MX$")
     val simbolo = simbolos[moneda] ?: moneda

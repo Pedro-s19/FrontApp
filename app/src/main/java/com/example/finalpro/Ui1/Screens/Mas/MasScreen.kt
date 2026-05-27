@@ -29,13 +29,7 @@ fun MasScreen(navController: NavController) {
         containerColor = BgPrimary,
         topBar = {
             TopAppBar(
-                title = {
-                    Text(
-                        "Más opciones",
-                        fontWeight = FontWeight.Bold,
-                        color = TextPrimary
-                    )
-                },
+                title = { Text("Mas opciones", fontWeight = FontWeight.Bold, color = TextPrimary) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = BgSurface)
             )
         },
@@ -66,7 +60,13 @@ fun MasScreen(navController: NavController) {
                     iconTint = GreenPrimary,
                     title = "Ingresos",
                     subtitle = "Registra y consulta tus entradas de dinero",
-                    onClick = { navController.navigate(Screen.Ingresos.route) { launchSingleTop = true } }
+                    onClick = {
+                        // popUpTo(Mas) inclusive=false para que el boton atras vuelva a MasScreen
+                        navController.navigate(Screen.Ingresos.route) {
+                            popUpTo(Screen.Mas.route) { inclusive = false }
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
             item {
@@ -76,7 +76,12 @@ fun MasScreen(navController: NavController) {
                     iconTint = ColorInfo,
                     title = "Suscripciones y fijos",
                     subtitle = "Gastos recurrentes mensuales",
-                    onClick = { navController.navigate(Screen.Recurrentes.route) { launchSingleTop = true } }
+                    onClick = {
+                        navController.navigate(Screen.Recurrentes.route) {
+                            popUpTo(Screen.Mas.route) { inclusive = false }
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
             item {
@@ -85,8 +90,13 @@ fun MasScreen(navController: NavController) {
                     iconBg = ColorWarning.copy(alpha = 0.12f),
                     iconTint = ColorWarning,
                     title = "Presupuesto",
-                    subtitle = "Controla cuánto puedes gastar por categoría",
-                    onClick = { navController.navigate(Screen.Presupuesto.route) { launchSingleTop = true } }
+                    subtitle = "Controla cuanto puedes gastar por categoria",
+                    onClick = {
+                        navController.navigate(Screen.Presupuesto.route) {
+                            popUpTo(Screen.Mas.route) { inclusive = false }
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
             item {
@@ -96,14 +106,34 @@ fun MasScreen(navController: NavController) {
                     iconTint = GreenPrimary,
                     title = "Comparativas",
                     subtitle = "Compara tus gastos entre meses",
-                    onClick = { navController.navigate(Screen.Comparativas.route) { launchSingleTop = true } }
+                    onClick = {
+                        navController.navigate(Screen.Comparativas.route) {
+                            popUpTo(Screen.Mas.route) { inclusive = false }
+                            launchSingleTop = true
+                        }
+                    }
+                )
+            }
+            item {
+                MasCard(
+                    icon = Icons.Rounded.EmojiEvents,
+                    iconBg = ColorWarning.copy(alpha = 0.12f),
+                    iconTint = ColorWarning,
+                    title = "Metas de ahorro",
+                    subtitle = "Bolsillos de ahorro con descuento automatico",
+                    onClick = {
+                        navController.navigate(Screen.Metas.route) {
+                            popUpTo(Screen.Mas.route) { inclusive = false }
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
 
             item {
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    "Gamificación",
+                    "Gamificacion",
                     style = MaterialTheme.typography.labelLarge,
                     color = TextSecondary,
                     modifier = Modifier.padding(vertical = 4.dp)
@@ -112,12 +142,17 @@ fun MasScreen(navController: NavController) {
 
             item {
                 MasCard(
-                    icon = Icons.Rounded.EmojiEvents,
+                    icon = Icons.Rounded.Star,
                     iconBg = ColorWarning.copy(alpha = 0.12f),
                     iconTint = ColorWarning,
                     title = "Mis logros",
                     subtitle = "Desbloquea insignias y sube de nivel",
-                    onClick = { navController.navigate(Screen.Logros.route) { launchSingleTop = true } }
+                    onClick = {
+                        navController.navigate(Screen.Logros.route) {
+                            popUpTo(Screen.Mas.route) { inclusive = false }
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
 
@@ -143,17 +178,12 @@ private fun MasCard(
         border = androidx.compose.foundation.BorderStroke(1.dp, Border)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Box(
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(14.dp))
-                    .background(iconBg),
+                modifier = Modifier.size(48.dp).clip(RoundedCornerShape(14.dp)).background(iconBg),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.size(24.dp))

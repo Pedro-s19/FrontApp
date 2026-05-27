@@ -23,8 +23,8 @@ sealed class Screen(val route: String) {
 data class BottomNavItem(val label: String, val route: String, val icon: ImageVector)
 
 val bottomNavItems = listOf(
-    BottomNavItem("Inicio",    Screen.Dashboard.route, Icons.Rounded.Home),
-    BottomNavItem("Gastos",    Screen.Gastos.route,    Icons.Rounded.ShoppingCart),
-    BottomNavItem("Reportes",  Screen.Reportes.route,  Icons.Rounded.BarChart),
-    BottomNavItem("Más",       Screen.Mas.route,       Icons.Rounded.GridView),
+    BottomNavItem("Inicio",   Screen.Dashboard.route, Icons.Rounded.Home),
+    BottomNavItem("Gastos",   Screen.Gastos.route,    Icons.Rounded.ShoppingCart),
+    BottomNavItem("Reportes", Screen.Reportes.route,  Icons.Rounded.BarChart),
+    BottomNavItem("Mas",      Screen.Mas.route,       Icons.Rounded.GridView),
 )
